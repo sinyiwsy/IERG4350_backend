@@ -1,0 +1,22 @@
+version: "3"
+services:
+    php-fpm:
+        image: php:8.0.3-fpm-buster
+        volumes:
+            - ./public/backend:/var/www/public/backend
+    nginx:
+        image: nginx:1.20.0
+        restart: on-failure
+        ports:
+            - 8080:80
+            - 18080:443
+        volumes:
+            - ./public:/var/www/public
+            - ./nginx/sites/default.conf:/etc/nginx/conf.d/default.conf
+            - ./nginx/logs/:/var/log/nginx
+        links:
+            - php-fpm:php
+        depends_on:
+            - php-fpm
+
+
