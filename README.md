@@ -17,4 +17,3 @@ docker-compose up -d
 Now `http://localhost:8080/index.php` will be the index of server
 
 ## Warning
-- CORS is enable to all headers of all requests
