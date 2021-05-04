@@ -1,10 +1,19 @@
-import safe from "make-promises-safe";
-import { createServer } from "./server.js";
+import fastify from "fastify";
 
-const PORT = "3000";
-const server = createServer();
+// Require the framework and instantiate it
+const server = fastify({
+  logger: true,
+});
 
-server.listen(+PORT, "0.0.0.0", (err, address) => {
-  if (err) throw err;
-  console.log(`server listening on ${address}`);
+// Declare a route
+server.get("/", (request, reply) => {
+  reply.send({ hello: "world" });
+});
+
+// Run the server!
+server.listen(3000, (err, address) => {
+  if (err) {
+    server.log.error(err);
+    process.exit(1);
+  }
 });
