@@ -1,15 +1,10 @@
-import Fastify from "fastify";
 import safe from "make-promises-safe";
-const fastify = Fastify({ logger: true });
+import { createServer } from "./server.js";
 
-fastify.register(import("./first-route.js"));
+const PORT = "3000";
+const server = createServer();
 
-const start = async () => {
-  try {
-    const address = await fastify.listen(3000);
-  } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
-  }
-};
-start();
+server.listen(+PORT, "0.0.0.0", (err, address) => {
+  if (err) throw err;
+  console.log(`server listening on ${address}`);
+});

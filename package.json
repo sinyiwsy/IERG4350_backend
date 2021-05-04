@@ -25,8 +25,16 @@
   },
   "dependencies": {
     "fastify": "^3.15.1",
+    "fastify-autoload": "^3.7.1",
     "fastify-cli": "^2.10.0",
-    "make-promises-safe": "^5.1.0"
+    "fastify-cors": "^6.0.0",
+    "fastify-jwt": "^2.4.0",
+    "fastify-swagger": "^4.7.0",
+    "make-promises-safe": "^5.1.0",
+    "mysql": "^2.18.1",
+    "pino-pretty": "^4.7.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.32"
   },
   "devDependencies": {
     "eslint": "^7.25.0",
