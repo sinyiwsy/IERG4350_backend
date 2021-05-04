@@ -1,16 +1,12 @@
-const fastify = require("fastify")({
-  logger: true,
-});
+import Fastify from "fastify";
+import safe from "make-promises-safe";
+const fastify = Fastify({ logger: true });
 
-fastify.get("/", async (request, reply) => {
-  request;
-  reply;
-  return { hello: "world" };
-});
+fastify.register(import("./first-route.js"));
 
 const start = async () => {
   try {
-    await fastify.listen(3000);
+    const address = await fastify.listen(3000);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
