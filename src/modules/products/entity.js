@@ -20,12 +20,20 @@ export const Product = new EntitySchema({
       type: "varchar",
       default: "",
     },
-    unit: {
-      type: "int",
+    price: {
+      type: "integer",
     },
     createdAt: {
       name: "created_at",
       createDate: true,
+    },
+  },
+  relations: {
+    category: {
+      type: "many-to-one",
+      target: "category",
+      joinColumn: { name: "category_id" },
+      cascade: true,
     },
   },
 });

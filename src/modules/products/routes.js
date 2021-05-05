@@ -3,6 +3,7 @@ import {
   postProductSchema,
   getProductSchema,
   deleteProductSchema,
+  putProductSchema,
 } from "./schema.js";
 
 export default (server, options, next) => {
@@ -55,5 +56,16 @@ export default (server, options, next) => {
       res.code(200).send({});
     }
   );
+
+  server.put(
+    "/products/:id",
+    { schema: putProductSchema },
+    async (req, res) => {
+      req.log.info(`update product ${req.params.id} from db`);
+      const product = await server.db.products.update(req.body);
+      return product;
+    }
+  );
+
   next();
 };
