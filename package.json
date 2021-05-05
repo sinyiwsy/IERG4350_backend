@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node index.js",
+    "dev": "nodemon --inspect index.js"
   },
   "husky": {
     "hooks": {
@@ -41,6 +42,7 @@
     "fluent-json-schema": "^2.0.4",
     "make-promises-safe": "^5.1.0",
     "mysql": "^2.18.1",
+    "nodemon": "^2.0.7",
     "pino-pretty": "^4.7.1",
     "reflect-metadata": "^0.1.13",
     "simple-get": "^4.0.0",

@@ -15,9 +15,9 @@ const __dirname = dirname(__filename);
 export async function createServer() {
   const server = await fastify({ log: true });
 
-  await server.register(Env, {
-    schema: S.object().prop("NODE_ENV", S.string().required()).valueOf(),
-  });
+  // await server.register(Env, {
+  //   schema: S.object().prop("NODE_ENV", S.string().required()).valueOf(),
+  // });
 
   await server.register(import("fastify-cors"));
   await server.register(import("fastify-autoload"), {
