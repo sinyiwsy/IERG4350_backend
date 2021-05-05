@@ -1,5 +1,5 @@
 import safe from "make-promises-safe";
-import { createServer } from "./server.js";
+import { createServer } from "./src/server.js";
 
 const start = async () => {
   const server = await createServer();
