@@ -1,34 +1,29 @@
 import { EntitySchema } from "typeorm";
 
-export const inventorySchema = new EntitySchema({
+export const Product = new EntitySchema({
   name: "product",
   tableName: "products",
   columns: {
     id: {
       primary: true,
-      type: "string",
+      type: "varchar",
       generated: "uuid",
     },
     name: {
-      type: "string",
+      type: "varchar",
+    },
+    description: {
+      type: "varchar",
     },
     image: {
-      type: "string",
-    },
-    expiresIn: {
-      name: "expires_in",
-      type: "number",
+      type: "varchar",
     },
     unit: {
-      type: "string",
+      type: "varchar",
     },
     createdAt: {
       name: "created_at",
       createDate: true,
-    },
-    updatedAt: {
-      name: "updated_at",
-      updateDate: true,
     },
   },
 });
