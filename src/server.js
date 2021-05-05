@@ -1,7 +1,7 @@
 import fastify from "fastify";
 import path from "path";
 import { fileURLToPath } from "url";
-import { dirname, join } from "path";
+import { dirname } from "path";
 
 // import healthHandler from "./modules/health/routes";
 // import productsHandler from "./modules/products/routes";
@@ -10,33 +10,64 @@ import { dirname, join } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export function createServer() {
-  const server = fastify({ logger: { prettyPrint: true } });
+export async function createServer() {
+  const server = await fastify({ log: true });
 
-  server.register(import("fastify-cors"));
-  server.register(import("fastify-autoload"), {
+  await server.register(import("fastify-cors"));
+  await server.register(import("fastify-autoload"), {
     dir: path.join(__dirname, "plugins"),
   });
+  await server.register(import("./modules/health/routes.js"));
 
-  // server.register(import("./plugins/auth"));
-  // // server.register(db);
-  // // server.register(healthHandler);
-  // // server.register(productsHandler);
-  // // server.register(inventoryHandler);
+  // server.register(import("fastify-autoload"), {
+  //   dir: __dirname,
+  //   dirNameRoutePrefix: false, // lack of prefix will mean no prefix, instead of directory name
+  //   indexPattern: /.*routes(\.ts|\.js|\.cjs|\.mjs)$/
+  // });
+
+  // server.register(productsHandler);
+  // server.register(inventoryHandler);
+
+  // server.register(require("fastify-oas"), {
+  //   routePrefix: "/docs",
+  //   exposeRoute: true,
+  //   swagger: {
+  //     info: {
+  //       title: "inventory api",
+  //       description: "api documentation",
+  //       version: "0.1.0"
+  //     },
+  //     servers: [
+  //       { url: "http://localhost:3000", description: "development" },
+  //       {
+  //         url: "https://<production-url>",
+  //         description: "production"
+  //       }
+  //     ],
+  //     schemes: ["http"],
+  //     consumes: ["application/json"],
+  //     produces: ["application/json"],
+  //     security: [{ bearerAuth: [] }],
+  //     securityDefinitions: {
+  //       bearerAuth: {
+  //         type: "http",
+  //         scheme: "bearer",
+  //         bearerFormat: "JWT"
+  //       }
+  //     }
+  //   }
+  // });
 
   // server.setErrorHandler((error, req, res) => {
   //   req.log.error(error.toString());
   //   res.send({ error });
   // });
 
-  // /*
-  // generate temporary token to be used in app
-
+  // // generate temporary token to be used in app
   // server.ready(() => {
-  //   const token = server.jwt.sign({ user_id: 'swr_user_id' })
-  //   console.log(token)
-  // })
-  // */
+  //   const token = server.jwt.sign({ user_id: "swr_user_id" });
+  //   console.log(token);
+  // });
 
   return server;
 }
