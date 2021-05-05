@@ -1,8 +1,8 @@
 import "reflect-metadata";
 import fp from "fastify-plugin";
 import { createConnection } from "typeorm";
-import { Product } from "../modules/products/entity.js"
-
+import { Product } from "../modules/products/entity.js";
+import { Category } from "../modules/categories/entity.js";
 export default fp(async (server) => {
   try {
     const connection = await createConnection({
@@ -13,13 +13,14 @@ export default fp(async (server) => {
       password: "adminpw",
       database: "bookshop",
       synchronize: true,
-      entities: [Product],
+      entities: [Product, Category],
       // entities: [["../**/entity.js"]],
     });
 
     console.log("database connected");
     server.decorate("db", {
       products: connection.getRepository(Product),
+      categories: connection.getRepository(Category),
     });
   } catch (error) {
     console.log(error);
