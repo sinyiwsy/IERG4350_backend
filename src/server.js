@@ -17,7 +17,7 @@ export async function createServer() {
   await server.register(import("fastify-autoload"), {
     dir: path.join(__dirname, "plugins"),
   });
-  await server.register(import("./modules/health/routes.js"));
+  await server.register(import("./modules/products/routes.js"));
 
   // server.register(import("fastify-autoload"), {
   //   dir: __dirname,

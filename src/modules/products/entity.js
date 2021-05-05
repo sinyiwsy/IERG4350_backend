@@ -14,12 +14,14 @@ export const Product = new EntitySchema({
     },
     description: {
       type: "varchar",
+      default: "",
     },
     image: {
       type: "varchar",
+      default: "",
     },
     unit: {
-      type: "varchar",
+      type: "int",
     },
     createdAt: {
       name: "created_at",

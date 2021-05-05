@@ -1,24 +1,53 @@
-import { listProductsSchema, deleteProductSchema } from "./schema";
+import {
+  listProductsSchema,
+  postProductSchema,
+  getProductSchema,
+  deleteProductSchema,
+} from "./schema.js";
 
 export default (server, options, next) => {
-  server.get(
+  server.get("/products", { schema: listProductsSchema }, async (req, res) => {
+    req.log.info(`list products from db`);
+
+    console.log("----");
+
+    console.log(server.db);
+    console.log("----");
+
+    const products = await server.db.products.find();
+    res.send(products);
+  });
+  server.post(
     "/products",
-    { schema: listProductsSchema, preValidation: [server.authenticate] },
+    { schema: postProductSchema },
+    // { schema: postProductSchema, preValidation: [server.authenticate] },
     async (req, res) => {
-      req.log.info(`list products from db`);
+      const { name, unit } = req.body;
 
-      console.log("----");
+      req.log.info(`save product to db`);
+      const inventory = await server.db.products.save({
+        name,
+        unit,
+      });
 
-      console.log(server.db);
-      console.log("----");
-
-      const products = await server.db.products.find();
-      res.send(products);
+      res.code(201).send(inventory);
+    }
+  );
+  server.get(
+    "/products/:id",
+    { schema: getProductSchema },
+    async (req, res) => {
+      req.log.info(`get product ${req.params.id} from db`);
+      const product = await server.db.products.findOne(req.params.id);
+      // if (req.user.user_id !== inventory.owner) {
+      //   throw new Error("Unauthorized access")
+      // }
+      res.send(product);
     }
   );
   server.delete(
     "/products/:id",
-    { schema: deleteProductSchema, preValidation: [server.authenticate] },
+    { schema: deleteProductSchema },
     async (req, res) => {
       req.log.info(`delete product ${req.params.id} from db`);
       const product = await server.db.products.findOne(req.params.id);
