@@ -1,13 +1,7 @@
 import fastify from "fastify";
-import Env from "fastify-env";
-import S from "fluent-json-schema";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-
-// import healthHandler from "./modules/health/routes";
-// import productsHandler from "./modules/products/routes";
-// import inventoryHandler from "./modules/inventory/routes";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -25,6 +19,7 @@ export async function createServer() {
   });
   await server.register(import("./modules/products/routes.js"));
   await server.register(import("./modules/categories/routes.js"));
+  await server.register(import("./modules/users/routes.js"));
   // server.register(import("fastify-autoload"), {
   //   dir: __dirname,
   //   dirNameRoutePrefix: false, // lack of prefix will mean no prefix, instead of directory name

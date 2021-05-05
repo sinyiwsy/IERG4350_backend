@@ -3,6 +3,7 @@ import fp from "fastify-plugin";
 import { createConnection } from "typeorm";
 import { Product } from "../modules/products/entity.js";
 import { Category } from "../modules/categories/entity.js";
+import { User } from "../modules/users/entity.js";
 export default fp(async (server) => {
   try {
     const connection = await createConnection({
@@ -13,7 +14,7 @@ export default fp(async (server) => {
       password: "adminpw",
       database: "bookshop",
       synchronize: true,
-      entities: [Product, Category],
+      entities: [Product, Category, User],
       // entities: [["../**/entity.js"]],
     });
 
@@ -21,6 +22,7 @@ export default fp(async (server) => {
     server.decorate("db", {
       products: connection.getRepository(Product),
       categories: connection.getRepository(Category),
+      users: connection.getRepository(User),
     });
   } catch (error) {
     console.log(error);
