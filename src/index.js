@@ -1,4 +1,3 @@
-import safe from "make-promises-safe";
 import { createServer } from "./server.js";
 
 const start = async () => {

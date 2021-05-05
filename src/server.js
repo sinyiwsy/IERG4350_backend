@@ -18,7 +18,7 @@ export async function createServer() {
     dir: path.join(__dirname, "plugins"),
   });
   await server.register(import("./modules/products/routes.js"));
-
+  await server.register(import("./modules/categories/routes.js"));
   // server.register(import("fastify-autoload"), {
   //   dir: __dirname,
   //   dirNameRoutePrefix: false, // lack of prefix will mean no prefix, instead of directory name
