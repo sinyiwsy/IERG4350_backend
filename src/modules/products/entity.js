@@ -27,6 +27,10 @@ export const Product = new EntitySchema({
       name: "created_at",
       createDate: true,
     },
+    updatedAt: {
+      name: "updated_at",
+      updateDate: true,
+    },
   },
   relations: {
     category: {

@@ -23,11 +23,12 @@ export default (server, options, next) => {
     { schema: postProductSchema },
     // { schema: postProductSchema, preValidation: [server.authenticate] },
     async (req, res) => {
-      const { cateogryId, name, price, description, image } = req.body;
+      const { categoryId, name, price, description, image } = req.body;
 
+      const category = await server.db.categories.findOne(categoryId);
       req.log.info(`save product to db`);
       const inventory = await server.db.products.save({
-        cateogryId,
+        category,
         name,
         price,
         description,

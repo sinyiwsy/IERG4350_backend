@@ -1,6 +1,6 @@
 export const productSchema = {
   id: { type: "string", format: "uuid" },
-  cateogryId: { type: "string", format: "uuid" },
+  categoryId: { type: "string", format: "uuid" },
   name: { type: "string" },
   description: { type: "string" },
   image: { type: "string", format: "uri" },
@@ -27,9 +27,9 @@ export const postProductSchema = {
   description: "create product",
   body: {
     type: "object",
-    required: ["cateogryId", "name", "price"],
+    required: ["categoryId", "name", "price"],
     properties: {
-      cateogryId: { type: "string", format: "uuid" },
+      categoryId: { type: "string", format: "uuid" },
       name: { type: "string" },
       price: { type: "integer", minimum: 1 },
       description: { type: "string" },
@@ -85,7 +85,7 @@ export const putProductSchema = {
   body: {
     type: "object",
     properties: {
-      cateogryId: { type: "string", format: "uuid" },
+      categoryId: { type: "string", format: "uuid" },
       name: { type: "string" },
       price: { type: "integer", minimum: 1 },
       description: { type: "string" },

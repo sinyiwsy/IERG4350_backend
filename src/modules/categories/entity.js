@@ -14,9 +14,17 @@ export const Category = new EntitySchema({
       type: "varchar",
       unique: true,
     },
+    createdAt: {
+      name: "created_at",
+      createDate: true,
+    },
+    updatedAt: {
+      name: "updated_at",
+      updateDate: true,
+    },
   },
   relations: {
-    product: {
+    products: {
       type: "one-to-many",
       target: "product",
     },
