@@ -1,9 +1,5 @@
-import { getHealthSchema } from "./schema";
-
-export default function healthHandler(server, options, next) {
-  server.get("/health", { schema: getHealthSchema }, (req, res) => {
-    res.send({ status: "ok" });
+export default async function routes(fastify, options) {
+  fastify.get("/", async (request, reply) => {
+    return { hello: "world" };
   });
-
-  next();
 }
