@@ -1,4 +1,5 @@
 import fp from "fastify-plugin";
+import bcrypt from "bcrypt";
 
 export default fp(async function (fastify, opts) {
   fastify.register(import("fastify-jwt"), {
@@ -7,12 +8,11 @@ export default fp(async function (fastify, opts) {
 
   fastify.register(import("fastify-auth"));
 
-  fastify.decorate("verifyJWTandRedis", verifyJWTandRedis);
+  fastify.decorate("verifyJWT", verifyJWT);
   fastify.decorate("verifyUserAndPassword", verifyUserAndPassword);
 
-  async function verifyJWTandRedis(request, reply) {
+  async function verifyJWT(request, reply) {
     const jwt = this.jwt;
-    const redis = this.redis["authdb-async"];
 
     if (request.body && request.body.failureWithReply) {
       reply.code(401).send({ error: "Unauthorized" });
@@ -25,8 +25,8 @@ export default fp(async function (fastify, opts) {
 
     try {
       const decoded = await jwt.verify(request.raw.headers.auth);
-      const password = redis.get(decoded.user);
-      if (!password || password !== decoded.password) {
+      const user = await server.db.users.findOne({username : decoded.username});
+      if (!user || !bcrypt.compareSync(decoded.password, user.passwordHash)) {
         throw new Error();
       }
       return decoded;
@@ -38,11 +38,9 @@ export default fp(async function (fastify, opts) {
 });
 
 async function verifyUserAndPassword(request, reply) {
-  const redis = this.redis["authdb-async"];
-
   try {
-    const password = redis.get("password");
-    if (!password || password !== request.body.password) {
+    const user = await server.db.users.findOne({username : request.body.username});
+    if (!user || !bcrypt.compareSync(request.body.password, user.passwordHash)) {
       throw new Error();
     }
   } catch (err) {

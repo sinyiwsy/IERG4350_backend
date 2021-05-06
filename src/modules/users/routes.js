@@ -8,7 +8,7 @@ export default (server, options, next) => {
     const { username, password, email } = req.body;
 
     req.log.info(`save user to db`);
-    
+
     const passwordHash = bcrypt.hashSync(password, saltRounds);
 
     const user = await server.db.users.save({
@@ -24,14 +24,24 @@ export default (server, options, next) => {
     { schema: postUserLoginSchema },
     async (req, res) => {
       const { username, password } = req.body;
-      const user = await server.db.users.findOne({username});
+      const user = await server.db.users.findOne({ username });
 
-      if(!bcrypt.compareSync(password, user.passwordHash)){
+      if (!bcrypt.compareSync(password, user.passwordHash)) {
         res.code(400).send({});
       }
 
-      const token = await server.jwt.sign({username});
+      const token = await server.jwt.sign({
+        username: username,
+        password: password,
+      });
       res.code(200).send(user.passwordHash);
+    }
+  );
+  server.post(
+    "/user/verify",
+    async (req, res) => {
+      const jwt = await server.verifyJWT(req, res);
+      res.code(200).send("hi");
     }
   );
   next();
