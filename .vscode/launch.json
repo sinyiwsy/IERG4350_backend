@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug bookshop backend",
+            "args": [
+                "${workspaceFolder}/index.js"
+            ],
+            "runtimeArgs": [
+            ],
+            "envFile": "${workspaceFolder}/.env",
+            "console": "integratedTerminal",
+            "protocol": "inspector"
+        }
+    ]
+  }

@@ -5,6 +5,12 @@ import {
   deleteCategorySchema,
 } from "./schema.js";
 
+import { productSchema } from "../products/schema.js";
+
+import { getConnection } from "typeorm";
+import { Category } from "./entity.js";
+import { Product } from "../products/entity.js";
+
 export default function inventoryHandler(server, options, next) {
   server.get(
     "/categories",
@@ -54,6 +60,29 @@ export default function inventoryHandler(server, options, next) {
       req.log.info(`delete category: ${category.id}`);
       await server.db.categories.remove(category);
       res.code(200).send({});
+    }
+  );
+
+  server.get(
+    "/categories/:id/products",
+    {
+      schema: {
+        ...getCategorySchema,
+        response: {
+          200: {
+            type: "array",
+            properties: productSchema,
+          },
+        },
+      },
+    },
+    async (req, res) => {
+      req.log.info(`get all products belongs to category ${req.params.id}`);
+      const category = await server.db.categories.findOne(req.params.id);
+      const products = await server.db.products.find({
+        relations: ["category"],
+      });
+      res.code(200).send(products);
     }
   );
   next();

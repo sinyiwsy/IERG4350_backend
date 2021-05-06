@@ -1,7 +1,7 @@
 import { EntitySchema } from "typeorm";
 
 export const Category = new EntitySchema({
-  name: "categories",
+  name: "category",
   tableName: "categories",
   columns: {
     id: {
@@ -12,11 +12,20 @@ export const Category = new EntitySchema({
     name: {
       name: "name",
       type: "varchar",
+      unique: true,
+    },
+    createdAt: {
+      name: "created_at",
+      createDate: true,
+    },
+    updatedAt: {
+      name: "updated_at",
+      updateDate: true,
     },
   },
   relations: {
-    product: {
-      type: "many-to-one",
+    products: {
+      type: "one-to-many",
       target: "product",
     },
   },

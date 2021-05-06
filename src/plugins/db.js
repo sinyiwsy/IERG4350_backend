@@ -15,15 +15,19 @@ export default fp(async (server) => {
       database: "bookshop",
       synchronize: true,
       entities: [Product, Category, User],
-      // entities: [["../**/entity.js"]],
     });
 
     console.log("database connected");
-    server.decorate("db", {
-      products: connection.getRepository(Product),
-      categories: connection.getRepository(Category),
-      users: connection.getRepository(User),
-    });
+    server
+      .decorate("db", {
+        connection: connection,
+        products: connection.getRepository(Product),
+        categories: connection.getRepository(Category),
+        users: connection.getRepository(User),
+      })
+      .addHook("onClose", async function (fastify) {
+        fastify.db.connection.close();
+      });
   } catch (error) {
     console.log(error);
     console.log("make sure you have set .env variables - see .env.sample");
