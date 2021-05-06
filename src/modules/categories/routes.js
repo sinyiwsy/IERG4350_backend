@@ -68,6 +68,9 @@ export default function inventoryHandler(server, options, next) {
     {
       schema: {
         ...getCategorySchema,
+        summary: "List products by category ",
+        description: "List products by category",
+        tags: ["products"],
         response: {
           200: {
             type: "array",

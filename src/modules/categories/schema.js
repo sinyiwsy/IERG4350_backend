@@ -6,6 +6,7 @@ const categorySchema = {
 export const listCategorySchema = {
   summary: "list category",
   description: "list category",
+  tags: ["categories"],
   response: {
     200: {
       type: "array",
@@ -19,6 +20,7 @@ export const listCategorySchema = {
 export const postCategorySchema = {
   summary: "create Category",
   description: "create Category",
+  tags: ["categories"],
   body: {
     type: "object",
     required: ["name"],
@@ -36,6 +38,7 @@ export const postCategorySchema = {
 export const getCategorySchema = {
   summary: "get Category",
   description: "get Category",
+  tags: ["categories"],
   params: {
     type: "object",
     required: ["id"],
@@ -54,6 +57,7 @@ export const getCategorySchema = {
 export const deleteCategorySchema = {
   summary: "delete Category",
   description: "delete Category",
+  tags: ["categories"],
   params: {
     type: "object",
     required: ["id"],

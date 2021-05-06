@@ -12,6 +12,7 @@ export const productSchema = {
 export const listProductsSchema = {
   summary: "products",
   description: "products",
+  tags: ["products"],
   response: {
     200: {
       type: "array",
@@ -25,6 +26,7 @@ export const listProductsSchema = {
 export const postProductSchema = {
   summary: "create product",
   description: "create product",
+  tags: ["products"],
   body: {
     type: "object",
     required: ["categoryId", "name", "price"],
@@ -47,6 +49,7 @@ export const postProductSchema = {
 export const getProductSchema = {
   summary: "get product",
   description: "get product",
+  tags: ["products"],
   params: {
     type: "object",
     required: ["id"],
@@ -65,6 +68,7 @@ export const getProductSchema = {
 export const deleteProductSchema = {
   summary: "delete product",
   description: "delete product",
+  tags: ["products"],
   params: {
     type: "object",
     required: ["id"],
@@ -82,6 +86,7 @@ export const deleteProductSchema = {
 export const putProductSchema = {
   summary: "update product",
   description: "update product",
+  tags: ["products"],
   body: {
     type: "object",
     properties: {
