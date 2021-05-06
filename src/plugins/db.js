@@ -4,6 +4,8 @@ import { createConnection } from "typeorm";
 import { Product } from "../modules/products/entity.js";
 import { Category } from "../modules/categories/entity.js";
 import { User } from "../modules/users/entity.js";
+import { Payment } from "../modules/payments/entity.js";
+
 export default fp(async (server) => {
   try {
     const connection = await createConnection({
@@ -14,7 +16,7 @@ export default fp(async (server) => {
       password: "adminpw",
       database: "bookshop",
       synchronize: true,
-      entities: [Product, Category, User],
+      entities: [Product, Category, User, Payment],
     });
 
     console.log("database connected");
@@ -24,6 +26,7 @@ export default fp(async (server) => {
         products: connection.getRepository(Product),
         categories: connection.getRepository(Category),
         users: connection.getRepository(User),
+        payments: connection.getRepository(Payment),
       })
       .addHook("onClose", async function (fastify) {
         fastify.db.connection.close();

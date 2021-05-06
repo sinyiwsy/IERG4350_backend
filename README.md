@@ -19,8 +19,8 @@ docker-compose up -d
 - [x] DELETE /products/:id
 - [ ] PUT /products/:id
 
-- [ ] POST /user
-- [ ] GET /user/auth
+- [x] POST /user
+- [x] GET /user/auth
 
 # TODO list
 - [ ] Product Schema: + cat_id => route

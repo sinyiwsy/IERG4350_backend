@@ -18,7 +18,10 @@ export async function createServer() {
 
   await server.register(Env, {
     dotenv: true,
-    schema: S.object().prop("NODE_ENV", S.string().required()).valueOf(),
+    schema: S.object().prop("NODE_ENV", S.string().required())
+    .prop("STRIPE_PUBLISH_KEY", S.string().required())
+    .prop("STRIPE_SECRET_KEY", S.string().required())
+    .valueOf(),
   });
 
   await server.register(import("fastify-routes"));
