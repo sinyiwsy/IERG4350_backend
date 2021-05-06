@@ -34,7 +34,7 @@ export default (server, options, next) => {
         username: username,
         password: password,
       });
-      res.code(200).send(user.passwordHash);
+      res.code(200).send(token);
     }
   );
   server.post(

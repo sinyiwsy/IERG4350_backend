@@ -19,13 +19,16 @@ export default fp(async function (fastify, opts) {
       throw new Error();
     }
 
-    if (!request.raw.headers.auth) {
+    if (!request.headers.authorization) {
       throw new Error("Missing token header");
     }
 
     try {
-      const decoded = await jwt.verify(request.raw.headers.auth);
-      const user = await server.db.users.findOne({username : decoded.username});
+      const token = request.headers.authorization.split(" ").pop();
+      console.log(token);
+
+      const decoded = await jwt.verify(token);
+      const user = await this.db.users.findOne({username : decoded.username});
       if (!user || !bcrypt.compareSync(decoded.password, user.passwordHash)) {
         throw new Error();
       }
