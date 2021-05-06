@@ -11,7 +11,8 @@ docker-compose up -d
 - [x] POST /categories
 - [x] GET /categories
 - [x] DELETE /categories/:id
-- [ ] PUT /categories/:id (X)
+- [ ] PUT /categories/:id
+- [ ] GET /categories/:id/products
 
 - [x] POST /products
 - [x] GET /products
@@ -22,7 +23,7 @@ docker-compose up -d
 - [ ] GET /user/auth
 
 # TODO list
-- [ ] Product Schema: + cat_id => route (X)
+- [ ] Product Schema: + cat_id => route
 - [ ] Category: search product by cat
 - [ ] OAuth 2.0
 - [ ] Stripe

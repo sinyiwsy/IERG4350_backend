@@ -35,6 +35,33 @@ export const postCategorySchema = {
     },
   },
 };
+
+export const putCategorySchema = {
+  summary: "Update category",
+  description: "Update category",
+  tags: ["categories"],
+  params: {
+    type: "object",
+    required: ["id"],
+    properties: {
+      id: { type: "string", format: "uuid" },
+    },
+  },
+  body: {
+    type: "object",
+    required: ["name"],
+    properties: {
+      name: { type: "string" },
+    },
+  },
+  response: {
+    201: {
+      type: "object",
+      properties: categorySchema,
+    },
+  },
+};
+
 export const getCategorySchema = {
   summary: "get Category",
   description: "get Category",

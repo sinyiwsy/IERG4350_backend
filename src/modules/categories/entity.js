@@ -25,8 +25,8 @@ export const Category = new EntitySchema({
   },
   relations: {
     products: {
+      target: "products",
       type: "one-to-many",
-      target: "product",
     },
   },
 });

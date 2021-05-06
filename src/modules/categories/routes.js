@@ -3,6 +3,7 @@ import {
   postCategorySchema,
   listCategorySchema,
   deleteCategorySchema,
+  putCategorySchema,
 } from "./schema.js";
 
 import { productSchema } from "../products/schema.js";
@@ -81,12 +82,35 @@ export default function inventoryHandler(server, options, next) {
     },
     async (req, res) => {
       req.log.info(`get all products belongs to category ${req.params.id}`);
-      const category = await server.db.categories.findOne(req.params.id);
-      const products = await server.db.products.find({
-        relations: ["category"],
+      const category = await server.db.categories.findOne({
+        id: req.params.id,
+        relations: ["products"],
       });
-      res.code(200).send(products);
+      res.code(200).send(category);
+      // const products = await server.db.products.find({
+      //   relations: ["category"]
+      // });
+      // res.code(200).send(products);
     }
   );
+
+  server.put(
+    "/categories/:id",
+    {
+      schema: putCategorySchema,
+    },
+    async (req, res) => {
+      req.log.info(`update category ${req.params.id} from db`);
+      // const category = await getConnection()
+      //   .createQueryBuilder()
+      //   .update(Category)
+      //   .set({ ...req.body })
+      //   .where("id = :id", { id: req.params.id })
+      //   .execute();
+      const category = server.db.categories.save({ id: req.params.id });
+      return category;
+    }
+  );
+
   next();
 }

@@ -29,6 +29,7 @@ export async function createServer() {
   await server.register(import("./modules/health/routes.js"));
   await server.register(import("./modules/products/routes.js"));
   await server.register(import("./modules/categories/routes.js"));
+  await server.register(import("./modules/users/routes.js"));
   // console.log(server.routes);
   return server;
 }
