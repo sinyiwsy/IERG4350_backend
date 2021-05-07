@@ -55,7 +55,8 @@ export default function inventoryHandler(server, options, next) {
       const category = await server.db.categories.findOne(req.params.id);
       req.log.info(`delete category: ${category.id}`);
       await server.db.categories.remove(category);
-      res.code(200).send({});
+      const response = await server.wrappedJSON(1, "");
+      res.code(200).send(response);
     }
   );
 
@@ -96,14 +97,19 @@ export default function inventoryHandler(server, options, next) {
     },
     async (req, res) => {
       req.log.info(`update category ${req.params.id} from db`);
+      const { name } = req.body;
       // const category = await getConnection()
       //   .createQueryBuilder()
       //   .update(Category)
       //   .set({ ...req.body })
       //   .where("id = :id", { id: req.params.id })
       //   .execute();
-      const category = server.db.categories.save({ id: req.params.id });
-      return category;
+      const category = server.db.categories.save({
+        id: req.params.id,
+        name: name,
+      });
+      const response = await server.wrappedJSON(1, category);
+      res.code(200).send(response);
     }
   );
 

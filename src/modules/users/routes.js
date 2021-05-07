@@ -70,12 +70,12 @@ export default (server, options, next) => {
 
     req.log.info(`save user to db`);
     const passwordHash = bcrypt.hashSync(password, saltRounds);
-    const isAmin = 1;
+    const isAdmin = true;
 
     const user = await server.db.users.save({
       passwordHash,
       email,
-      isAmin,
+      isAdmin,
     });
 
     res.code(201).send(user);
