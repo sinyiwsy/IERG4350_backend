@@ -15,9 +15,11 @@ export const listProductsSchema = {
   tags: ["products"],
   response: {
     200: {
-      type: "array",
-      items: {
-        properties: productSchema,
+      type: "object",
+      required: ["success", "values"],
+      properties: {
+        success: { type: "number" },
+        values: { tyep: productSchema },
       },
     },
   },

@@ -9,14 +9,9 @@ import {
 export default (server, options, next) => {
   server.get("/products", { schema: listProductsSchema }, async (req, res) => {
     req.log.info(`list products from db`);
-
-    console.log("----");
-
-    console.log(server.db);
-    console.log("----");
-
     const products = await server.db.products.find();
-    res.send(products);
+    const response = await server.wrappedJSON(1, products);
+    res.code(200).send(response);
   });
   server.post(
     "/products",
