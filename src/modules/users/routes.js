@@ -9,19 +9,19 @@ const saltRounds = 10;
 
 export default (server, options, next) => {
   server.post("/user", { schema: postUsersSchema }, async (req, res) => {
-    const { username, password, email } = req.body;
+    const { password, email } = req.body;
 
     req.log.info(`save user to db`);
 
     const passwordHash = bcrypt.hashSync(password, saltRounds);
 
     const user = await server.db.users.save({
-      username,
       passwordHash,
       email,
     });
 
-    res.code(201).send(user);
+    const response = await server.wrappedJSON(1, user);
+    res.code(201).send(response);
   });
   server.post(
     "/user/login",
@@ -39,7 +39,15 @@ export default (server, options, next) => {
         email: email,
         password: password,
       });
-      res.code(200).send(token);
+
+      const json = {
+        email: user.email,
+        isAdmin: user.isAdmin,
+        token: token,
+      };
+
+      const response = await server.wrappedJSON(1, json);
+      res.code(200).send(response);
     }
   );
   server.post(
@@ -58,14 +66,13 @@ export default (server, options, next) => {
   );
 
   server.post("/user/admin", { schema: postAdminSchema }, async (req, res) => {
-    const { username, password, email } = req.body;
+    const { password, email } = req.body;
 
     req.log.info(`save user to db`);
     const passwordHash = bcrypt.hashSync(password, saltRounds);
     const isAmin = 1;
 
     const user = await server.db.users.save({
-      username,
       passwordHash,
       email,
       isAmin,

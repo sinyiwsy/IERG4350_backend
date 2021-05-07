@@ -1,6 +1,5 @@
 export const userSchema = {
   id: { type: "string", format: "uuid" },
-  username: { type: "string" },
   password: { type: "string" },
   email: { type: "string" },
 };
@@ -10,9 +9,8 @@ export const postUsersSchema = {
   description: "register",
   body: {
     type: "object",
-    required: ["username", "password", "email"],
+    required: ["password", "email"],
     properties: {
-      username: { type: "string" },
       password: { type: "string" },
       email: { type: "string" },
     },
@@ -20,7 +18,11 @@ export const postUsersSchema = {
   response: {
     201: {
       type: "object",
-      properties: userSchema,
+      required: ["success", "values"],
+      properties: {
+        success: { type: "number" },
+        values: { tyep: userSchema },
+      },
     },
   },
 };
@@ -39,7 +41,11 @@ export const postUserLoginSchema = {
   response: {
     200: {
       type: "object",
-      properties: userSchema,
+      required: ["success", "values"],
+      properties: {
+        success: { type: "number" },
+        values: { tyep: userSchema },
+      },
     },
   },
 };
@@ -49,9 +55,8 @@ export const postAdminSchema = {
   description: "register",
   body: {
     type: "object",
-    required: ["username", "password", "email"],
+    required: ["password", "email"],
     properties: {
-      username: { type: "string" },
       password: { type: "string" },
       email: { type: "string" },
     },

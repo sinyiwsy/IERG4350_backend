@@ -18,14 +18,9 @@ export default function inventoryHandler(server, options, next) {
     { schema: listCategorySchema },
     async (req, res) => {
       req.log.info(`list categories from db`);
-
-      console.log("----");
-
-      console.log(server.db);
-      console.log("----");
-
       const categories = await server.db.categories.find();
-      res.send(categories);
+      const response = await server.wrappedJSON(1, categories);
+      res.code(200).send(response);
     }
   );
   server.post(

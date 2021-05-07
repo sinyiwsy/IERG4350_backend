@@ -17,6 +17,7 @@ async function swaggerGenerator(fastify, opts) {
       info: {
         title: "Bookshop backend",
         description: "API documentation",
+        version: "0.1.0",
       },
       externalDocs: {
         url: "https://github.com/sinyiwsy/IERG4350_backend.git",
