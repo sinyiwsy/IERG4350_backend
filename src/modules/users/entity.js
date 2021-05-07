@@ -18,5 +18,9 @@ export const User = new EntitySchema({
     email: {
       type: "varchar",
     },
+    isAdmin:{
+      type: "int",
+      default: 0,
+    }
   },
 });
