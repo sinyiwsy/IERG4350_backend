@@ -59,7 +59,6 @@ export const putCategorySchema = {
   response: {
     201: {
       type: "object",
-      properties: categorySchema,
     },
   },
 };
