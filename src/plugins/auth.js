@@ -10,6 +10,14 @@ export default fp(async function (fastify, opts) {
 
   fastify.decorate("verifyJWT", verifyJWT);
   fastify.decorate("verifyUserAndPassword", verifyUserAndPassword);
+  fastify.addSchema({
+    $id: "auth",
+    type: "object",
+    properties: {
+      authorization: { type: "string" },
+    },
+    required: ["authorization"],
+  });
 
   async function verifyJWT(request, reply) {
     const jwt = this.jwt;

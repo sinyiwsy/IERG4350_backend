@@ -42,10 +42,20 @@ export default (server, options, next) => {
       res.code(200).send(token);
     }
   );
-  server.post("/user/verify", async (req, res) => {
-    const jwt = await server.verifyJWT(req, res);
-    res.code(200).send("hi");
-  });
+  server.post(
+    "/user/verify",
+    {
+      schema: {
+        summary: "verify user",
+        description: "verify user",
+        headers: { $ref: "auth" },
+      },
+    },
+    async (req, res) => {
+      const jwt = await server.verifyJWT(req, res);
+      res.code(200).send("hi");
+    }
+  );
 
   server.post("/user/admin", { schema: postAdminSchema }, async (req, res) => {
     const { username, password, email } = req.body;
