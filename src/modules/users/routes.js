@@ -43,17 +43,27 @@ export default (server, options, next) => {
       const json = {
         email: user.email,
         isAdmin: user.isAdmin,
-        token: token
+        token: token,
       };
 
       const response = await server.wrappedJSON(1, json);
       res.code(200).send(response);
     }
   );
-  server.post("/user/verify", async (req, res) => {
-    const jwt = await server.verifyJWT(req, res);
-    res.code(200).send("hi");
-  });
+  server.post(
+    "/user/verify",
+    {
+      schema: {
+        summary: "verify user",
+        description: "verify user",
+        headers: { $ref: "auth" },
+      },
+    },
+    async (req, res) => {
+      const jwt = await server.verifyJWT(req, res);
+      res.code(200).send("hi");
+    }
+  );
 
   server.post("/user/admin", { schema: postAdminSchema }, async (req, res) => {
     const { password, email } = req.body;

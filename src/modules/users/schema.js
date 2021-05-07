@@ -10,7 +10,7 @@ export const postUsersSchema = {
   description: "register",
   body: {
     type: "object",
-    required: [ "password", "email"],
+    required: ["password", "email"],
     properties: {
       password: { type: "string" },
       email: { type: "string" },

@@ -17,7 +17,7 @@ async function swaggerGenerator(fastify, opts) {
       info: {
         title: "Bookshop backend",
         description: "API documentation",
-        version: '0.1.0'
+        version: "0.1.0",
       },
       externalDocs: {
         url: "https://github.com/sinyiwsy/IERG4350_backend.git",
@@ -27,13 +27,6 @@ async function swaggerGenerator(fastify, opts) {
       schemes: ["http"],
       consumes: ["application/json"],
       produces: ["application/json", "text/html"],
-      securityDefinitions: {
-        Bearer: {
-          type: "apiKey",
-          name: "Authorization",
-          in: "header",
-        },
-      },
     },
     // let's expose the documentation only in development
     // it's up to you decide who should see this page,
