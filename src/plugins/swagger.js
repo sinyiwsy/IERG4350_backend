@@ -23,7 +23,7 @@ async function swaggerGenerator(fastify, opts) {
         url: "https://github.com/sinyiwsy/IERG4350_backend.git",
         description: "Find more info here",
       },
-      host: "localhost:4000", // and your deployed url
+      host: fastify.config.hostname, // and your deployed url
       schemes: ["http"],
       consumes: ["application/json"],
       produces: ["application/json", "text/html"],
