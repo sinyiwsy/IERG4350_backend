@@ -2,6 +2,7 @@ export const userSchema = {
   id: { type: "string", format: "uuid" },
   password: { type: "string" },
   email: { type: "string" },
+  isAdmin: { type:"boolean" },
 };
 
 export const postUsersSchema = {
