@@ -13,22 +13,17 @@ export default fp(async function (fastify, opts) {
 
   async function verifyJWT(request, reply) {
     const jwt = this.jwt;
-
     if (request.body && request.body.failureWithReply) {
       reply.code(401).send({ error: "Unauthorized" });
       throw new Error();
     }
-
     if (!request.headers.authorization) {
       throw new Error("Missing token header");
     }
-
     try {
       const token = request.headers.authorization.split(" ").pop();
-      console.log(token);
-
       const decoded = await jwt.verify(token);
-      const user = await this.db.users.findOne({username : decoded.username});
+      const user = await this.db.users.findOne({ email: decoded.email });
       if (!user || !bcrypt.compareSync(decoded.password, user.passwordHash)) {
         throw new Error();
       }
@@ -42,8 +37,11 @@ export default fp(async function (fastify, opts) {
 
 async function verifyUserAndPassword(request, reply) {
   try {
-    const user = await server.db.users.findOne({username : request.body.username});
-    if (!user || !bcrypt.compareSync(request.body.password, user.passwordHash)) {
+    const user = await server.db.users.findOne({ email: request.body.email });
+    if (
+      !user ||
+      !bcrypt.compareSync(request.body.password, user.passwordHash)
+    ) {
       throw new Error();
     }
   } catch (err) {

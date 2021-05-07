@@ -12,16 +12,19 @@ export async function createServer() {
   const server = await fastify({
     logger: {
       level: "info",
+      file: `${__dirname}/../logs/server.log`,
       prettyPrint: true,
     },
   });
 
   await server.register(Env, {
     dotenv: true,
-    schema: S.object().prop("NODE_ENV", S.string().required())
-    .prop("STRIPE_PUBLISH_KEY", S.string().required())
-    .prop("STRIPE_SECRET_KEY", S.string().required())
-    .valueOf(),
+    schema: S.object()
+      .prop("NODE_ENV", S.string().required())
+      .prop("BASE_URL", S.string().required())
+      .prop("STRIPE_PUBLISH_KEY", S.string().required())
+      .prop("STRIPE_SECRET_KEY", S.string().required())
+      .valueOf(),
   });
 
   await server.register(import("fastify-routes"));
@@ -33,6 +36,7 @@ export async function createServer() {
   await server.register(import("./modules/products/routes.js"));
   await server.register(import("./modules/categories/routes.js"));
   await server.register(import("./modules/users/routes.js"));
-  // console.log(server.routes);
+  await server.register(import("./modules/payments/routes.js"));
+
   return server;
 }

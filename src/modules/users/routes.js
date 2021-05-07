@@ -1,4 +1,8 @@
-import { postUsersSchema, postUserLoginSchema, postAdminSchema } from "./schema.js";
+import {
+  postUsersSchema,
+  postUserLoginSchema,
+  postAdminSchema,
+} from "./schema.js";
 import bcrypt from "bcrypt";
 
 const saltRounds = 10;
@@ -31,19 +35,18 @@ export default (server, options, next) => {
       }
 
       const token = await server.jwt.sign({
+        id: user.id,
         email: email,
         password: password,
       });
       res.code(200).send(token);
     }
   );
-  server.post(
-    "/user/verify",
-    async (req, res) => {
-      const jwt = await server.verifyJWT(req, res);
-      res.code(200).send("hi");
-    }
-  );
+  server.post("/user/verify", async (req, res) => {
+    const jwt = await server.verifyJWT(req, res);
+    res.code(200).send("hi");
+  });
+
   server.post("/user/admin", { schema: postAdminSchema }, async (req, res) => {
     const { username, password, email } = req.body;
 

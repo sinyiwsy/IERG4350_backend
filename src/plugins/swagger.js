@@ -17,25 +17,19 @@ async function swaggerGenerator(fastify, opts) {
       info: {
         title: "Bookshop backend",
         description: "API documentation",
-        version,
       },
       externalDocs: {
         url: "https://github.com/sinyiwsy/IERG4350_backend.git",
         description: "Find more info here",
       },
-      host: "localhost:3000", // and your deployed url
+      host: "localhost:4000", // and your deployed url
       schemes: ["http"],
       consumes: ["application/json"],
       produces: ["application/json", "text/html"],
       securityDefinitions: {
         Bearer: {
           type: "apiKey",
-          name: "Bearer",
-          in: "header",
-        },
-        Csrf: {
-          type: "apiKey",
-          name: "x-csrf-token",
+          name: "Authorization",
           in: "header",
         },
       },
