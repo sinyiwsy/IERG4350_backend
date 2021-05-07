@@ -1,5 +1,11 @@
 import { EntitySchema } from "typeorm";
 
+export const paymentStatus = {
+  pending: "Pending",
+  success: "Success",
+  failed: "Failed",
+};
+
 export const Payment = new EntitySchema({
   name: "payment",
   tableName: "payment",
@@ -8,6 +14,15 @@ export const Payment = new EntitySchema({
       primary: true,
       type: "varchar",
       generated: "uuid",
+    },
+    sessionId: {
+      name: "session_id",
+      type: "varchar",
+      unique: true,
+    },
+    status: {
+      type: "varchar",
+      default: paymentStatus.pending,
     },
     details: {
       type: "json",

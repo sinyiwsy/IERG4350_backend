@@ -9,15 +9,16 @@ export const User = new EntitySchema({
       type: "varchar",
       generated: "uuid",
     },
+    email: {
+      type: "varchar",
+      unique: true,
+    },
     passwordHash: {
       type: "varchar",
     },
-    email: {
-      type: "varchar",
-    },
-    isAdmin:{
+    isAdmin: {
       type: "int",
       default: 0,
-    }
+    },
   },
 });

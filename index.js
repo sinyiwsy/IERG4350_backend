@@ -4,8 +4,10 @@ import { createServer } from "./src/server.js";
 const start = async () => {
   const server = await createServer();
   try {
-    const PORT = "3000";
-    await server.listen(+PORT, "0.0.0.0", (err, address) => {
+    let tmp = server.config.BASE_URL.split(":");
+    const address = tmp[1].slice(2);
+    const port = tmp[2] ?? "3000";
+    await server.listen(port, address, (err, address) => {
       if (err) throw err;
       console.log(`server listening on ${address}`);
     });
