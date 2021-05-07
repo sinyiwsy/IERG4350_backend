@@ -27,8 +27,16 @@ export async function createServer() {
       .valueOf(),
   });
 
+  let tmp = server.config.BASE_URL.split(":");
+  const address = tmp[1].slice(2);
+  const port = tmp[2] ?? "3000";
+  server.config.address = address;
+  server.config.port = port;
+  server.config.hostname = address + ":" + port;
+
+  await server.register(import("fastify-cors"), {});
+
   await server.register(import("fastify-routes"));
-  await server.register(import("fastify-cors"));
   await server.register(import("fastify-autoload"), {
     dir: path.join(__dirname, "plugins"),
   });

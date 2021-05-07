@@ -8,7 +8,7 @@ export const paymentStatus = {
 
 export const Payment = new EntitySchema({
   name: "payment",
-  tableName: "payment",
+  tableName: "payments",
   columns: {
     id: {
       primary: true,

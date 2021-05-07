@@ -36,14 +36,14 @@ export default function (server, options, next) {
         cancel_url: `${server.config.BASE_URL}/cancel`,
       });
 
-      const payment = await server.db.users.save({
+      const payment = await server.db.payments.save({
         user,
         sessionId: session.id,
         details: products,
         reference: session,
       });
 
-      return products;
+      return session;
     }
   );
   next();

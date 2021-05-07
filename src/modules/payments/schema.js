@@ -16,6 +16,7 @@ export const createSessionSchema = {
   summary: "Create checkout session for react client",
   description: "create checkout session",
   tags: ["payment"],
+  headers: { $ref: "auth" },
   body: {
     type: "object",
     required: ["shoppingCart"],
