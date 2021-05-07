@@ -9,9 +9,6 @@ export const User = new EntitySchema({
       type: "varchar",
       generated: "uuid",
     },
-    username: {
-      type: "varchar",
-    },
     passwordHash: {
       type: "varchar",
     },

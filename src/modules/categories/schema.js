@@ -9,9 +9,11 @@ export const listCategorySchema = {
   tags: ["categories"],
   response: {
     200: {
-      type: "array",
-      items: {
-        properties: categorySchema,
+      type: "object",
+      required: ["success", "values"],
+      properties: {
+        success: { type: "number" },
+        values: { tyep: categorySchema },
       },
     },
   },
