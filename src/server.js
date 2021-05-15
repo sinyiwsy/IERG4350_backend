@@ -22,6 +22,11 @@ export async function createServer() {
     schema: S.object()
       .prop("NODE_ENV", S.string().required())
       .prop("BASE_URL", S.string().required())
+      // .prop("AWS_ACCESS_KEY_ID", S.string().required())
+      // .prop("AWS_SECRET_ACCESS_KEY", S.string().required())
+      // .prop("AWS_SESSION_TOKEN", S.string().required())
+      .prop("S3_BUCKET_NAME", S.string().required())
+      .prop("S3_BUCKET_REGION", S.string().required())
       .prop("STRIPE_PUBLISH_KEY", S.string().required())
       .prop("STRIPE_SECRET_KEY", S.string().required())
       .valueOf(),

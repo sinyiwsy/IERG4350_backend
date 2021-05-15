@@ -37,7 +37,14 @@ export const postProductSchema = {
       name: { type: "string" },
       price: { type: "integer", minimum: 1 },
       description: { type: "string" },
-      image: { type: "string", format: "uri" },
+      image: {
+        type: "string",
+        format: "uri",
+      },
+      imageContent: {
+        type: "string",
+        pattern: "^data:image/.*;base64,/9j",
+      },
     },
   },
   response: {
