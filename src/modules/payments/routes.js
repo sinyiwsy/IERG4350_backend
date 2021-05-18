@@ -33,8 +33,8 @@ export default function (server, options, next) {
         mode: "payment",
         payment_method_types: ["card"],
         line_items: products,
-        success_url: `${server.config.REACT_APP_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${server.config.REACT_APP_BASE_URL}/cancel?session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${server.config.REACT_APP_BASE_URL}/payment_success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${server.config.REACT_APP_BASE_URL}/payment_fail?session_id={CHECKOUT_SESSION_ID}`,
       });
 
       const payment = await server.db.payments.save({
