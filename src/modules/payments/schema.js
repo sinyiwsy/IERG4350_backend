@@ -1,3 +1,4 @@
+import { paymentStatus } from "./entity.js";
 const shoppingCartSchema = {
   shoppingCart: {
     type: "array",
@@ -12,6 +13,24 @@ const shoppingCartSchema = {
   },
 };
 
+const paymentSchema = {
+  type: "object",
+  required: ["status", "details"],
+  properties: {
+    status: {
+      type: "string",
+      pattern: `(${paymentStatus.pending})|(${paymentStatus.failed})|(${paymentStatus.success})`,
+    },
+    details: {
+      type: "array",
+    },
+    createdAt: {
+      type: "string",
+      format: "date-time",
+    },
+  },
+};
+
 export const createSessionSchema = {
   summary: "Create checkout session for react client",
   description: "create checkout session",
@@ -21,5 +40,25 @@ export const createSessionSchema = {
     type: "object",
     required: ["shoppingCart"],
     properties: { ...shoppingCartSchema },
+  },
+};
+
+export const getSuccessPaymentsSchema = {
+  summary: "Query all success payment records",
+  description: "Query all success payment records",
+  tags: ["payment"],
+  headers: { $ref: "auth" },
+  response: {
+    200: {
+      type: "object",
+      properties: {
+        payments: {
+          type: "array",
+          items: {
+            ...paymentSchema,
+          },
+        },
+      },
+    },
   },
 };

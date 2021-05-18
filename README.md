@@ -28,3 +28,12 @@ docker-compose up -d
 - [ ] OAuth 2.0
 - [ ] Stripe
 - [ ] SendGrid
+
+
+## Stripe
+- [Success Page Prettify](https://stripe.com/docs/payments/checkout/custom-success-page)
+- [Order Web Hook](https://stripe.com/docs/payments/checkout/fulfill-orders)
+
+### Production
+- HTTPS
+- Register webhook

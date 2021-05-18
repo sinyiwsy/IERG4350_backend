@@ -41,8 +41,8 @@ export const Payment = new EntitySchema({
   },
   relations: {
     user: {
-      type: "many to one",
-      target: "user",
+      type: "many-to-one",
+      target: "users",
       joinColumn: { name: "user_id" },
       cascade: true,
     },

@@ -22,6 +22,7 @@ export async function createServer() {
     schema: S.object()
       .prop("NODE_ENV", S.string().required())
       .prop("BASE_URL", S.string().required())
+      .prop("REACT_APP_BASE_URL", S.string().required())
       // .prop("AWS_ACCESS_KEY_ID", S.string().required())
       // .prop("AWS_SECRET_ACCESS_KEY", S.string().required())
       // .prop("AWS_SESSION_TOKEN", S.string().required())
@@ -29,6 +30,7 @@ export async function createServer() {
       .prop("S3_BUCKET_REGION", S.string().required())
       .prop("STRIPE_PUBLISH_KEY", S.string().required())
       .prop("STRIPE_SECRET_KEY", S.string().required())
+      .prop("STRIPE_WEBHOOK_SECRET", S.string().required())
       .valueOf(),
   });
 
@@ -45,6 +47,12 @@ export async function createServer() {
   await server.register(import("fastify-autoload"), {
     dir: path.join(__dirname, "plugins"),
   });
+  await server.register(import("fastify-raw-body"), {
+    field: "rawBody",
+    encoding: "utf8",
+    global: false,
+  });
+
   await server.register(import("./modules/health/routes.js"));
   await server.register(import("./modules/products/routes.js"));
   await server.register(import("./modules/categories/routes.js"));

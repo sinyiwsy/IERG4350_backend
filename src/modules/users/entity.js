@@ -21,4 +21,10 @@ export const User = new EntitySchema({
       default: false,
     },
   },
+  relations: {
+    payments: {
+      target: "payments",
+      type: "one-to-many",
+    },
+  },
 });
