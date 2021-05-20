@@ -25,11 +25,10 @@ export default (server, options, next) => {
       const s3 = new S3Client({
         region: server.config.S3_BUCKET_REGION,
       });
-
       await s3.send(new PutObjectCommand(uploadParams));
       return `https://${server.config.S3_BUCKET_NAME}.s3.amazonaws.com/${Key}`;
     } catch (err) {
-      console.log("Error", err);
+      req.log.error(err);
       throw new Error("Failed to upload to s3");
     }
   }

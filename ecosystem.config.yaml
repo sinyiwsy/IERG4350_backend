@@ -2,3 +2,4 @@ apps:
   - script: ./index.js
     name: 'http-api'
     instance: 1
+    exp_backoff_restart_delay: 100

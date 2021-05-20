@@ -34,5 +34,6 @@ export default fp(async (server) => {
   } catch (error) {
     console.log(error);
     console.log("make sure you have set .env variables - see .env.sample");
+    throw new Error("DB connection failed");
   }
 });
