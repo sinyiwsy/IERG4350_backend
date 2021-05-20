@@ -1,0 +1,14 @@
+version: "3.3"
+services:
+  db1:
+    image: "mysql:8.0"
+    ports:
+      - "5306:3306"
+    volumes:
+      - ./db1:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: adminpw
+      MYSQL_DATABASE: bookshop
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: adminpw

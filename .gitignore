@@ -1,0 +1,9 @@
+# js
+node_modules
+
+# logs
+logs
+
+# Mac
+.DS_Store
+.env
