@@ -17,6 +17,7 @@ const paymentSchema = {
   type: "object",
   required: ["status", "details"],
   properties: {
+    id: { type: "string", format: "uuid" },
     status: {
       type: "string",
       pattern: `(${paymentStatus.pending})|(${paymentStatus.failed})|(${paymentStatus.success})`,
