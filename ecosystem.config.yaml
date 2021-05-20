@@ -1,0 +1,4 @@
+apps:
+  - script: ./index.js
+    name: 'http-api'
+    instance: 1
