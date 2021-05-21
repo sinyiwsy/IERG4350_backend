@@ -23,9 +23,6 @@ export async function createServer() {
       .prop("NODE_ENV", S.string().required())
       .prop("BASE_URL", S.string().required())
       .prop("REACT_APP_BASE_URL", S.string().required())
-      // .prop("AWS_ACCESS_KEY_ID", S.string().required())
-      // .prop("AWS_SECRET_ACCESS_KEY", S.string().required())
-      // .prop("AWS_SESSION_TOKEN", S.string().required())
       .prop("S3_BUCKET_NAME", S.string().required())
       .prop("S3_BUCKET_REGION", S.string().required())
       .prop("STRIPE_PUBLISH_KEY", S.string().required())
@@ -41,7 +38,15 @@ export async function createServer() {
   server.config.port = port;
   server.config.hostname = address + ":" + port;
 
-  await server.register(import("fastify-cors"), {});
+  await server.register(import("fastify-cors"), {
+    origin: [
+      "http://ec2-54-173-65-159.compute-1.amazonaws.com:3006",
+      "http://localhost:3006",
+    ],
+    methods: "*",
+    allowedHeaders: "*",
+    credentials: true,
+  });
 
   await server.register(import("fastify-routes"));
   await server.register(import("fastify-autoload"), {
